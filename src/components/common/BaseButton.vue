@@ -17,7 +17,7 @@ const props = defineProps<BaseButtonProps>();
 <style scoped>
 .base-button {
 	width: 100%;
-	height: 64px;
+	height: 48px;
 	border-radius: 8px;
 	font-size: 1rem;
 	color: var(--font-color);
