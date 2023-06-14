@@ -2,9 +2,9 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import type { ButtonHTMLAttributes } from "vue";
 
-import BaseButton from "./BaseButton.vue";
+import BaseButton, { BaseButtonProps } from "./BaseButton.vue";
 
-type Props = ButtonHTMLAttributes;
+type Props = ButtonHTMLAttributes & BaseButtonProps;
 
 const BUTTON_TEXT = "any_text";
 const BUTTON_TITLE = "any_title";
