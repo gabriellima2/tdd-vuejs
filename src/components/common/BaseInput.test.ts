@@ -25,8 +25,8 @@ describe("<BaseInput />", () => {
 			const component = mountComponent({ name: INPUT_NAME, placeholder: INPUT_PLACEHOLDER });
 
 			expect(component.get('[type="text"]')).toBeTruthy();
-			expect(component.get(`[placeholder=${INPUT_PLACEHOLDER}`)).toBeTruthy();
-			expect(component.get(`[name=${INPUT_NAME}`)).toBeTruthy();
+			expect(component.get(`[placeholder=${INPUT_PLACEHOLDER}]`)).toBeTruthy();
+			expect(component.get(`[name=${INPUT_NAME}]`)).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
@@ -37,8 +37,8 @@ describe("<BaseInput />", () => {
 
 				await component.setValue(TYPED_VALUE);
 
-				expect(component.props("modelValue")).toBe(TYPED_VALUE)
-			})
-		})
-	})
+				expect(component.props("modelValue")).toBe(TYPED_VALUE);
+			});
+		});
+	});
 });
