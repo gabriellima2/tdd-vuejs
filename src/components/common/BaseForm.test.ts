@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it, vi } from "vitest";
+import type { DefineComponent } from "vue";
 
 import BaseForm, { BaseFormProps } from "./BaseForm.vue";
 
@@ -9,7 +10,7 @@ const DEFAULT_PROPS: BaseFormProps = {
 	onSubmit: vi.fn(),
 }
 
-const mountComponent = () => mount(BaseForm as any, {
+const mountComponent = () => mount(BaseForm as DefineComponent<BaseFormProps>, {
 	props: DEFAULT_PROPS, slots: { default: FIELDS_SLOT }
 });
 

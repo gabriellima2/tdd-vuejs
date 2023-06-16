@@ -1,14 +1,15 @@
 <template>
-  <BaseButton type="button" @click="() => console.log(value)">Hello</BaseButton>
-	<BaseLabel htmlFor="name">Nome</BaseLabel>
-	<BaseInput type="text" title="Seu nome" name="name" id="name" v-model="value" placeholder="Ex: Gabriel"  />
+	<BaseForm buttonText="Entrar" :onSubmit="() => console.log(value)">
+		<Field labelText="Nome" v-model="value" :input="{ name: 'username', id: 'username', placeholder: 'Ex: gabriel123',
+ title: 'Seu nome' }" :error="{ id: 'username_error', message: null }" />
+	</BaseForm>
+
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseButton from './components/common/BaseButton.vue';
-import BaseInput from './components/common/BaseInput.vue';
-import BaseLabel from './components/common/BaseLabel.vue';
+import Field from './components/common/Field.vue';
+import BaseForm from './components/common/BaseForm.vue';
 const value = ref("")
 </script>
 
