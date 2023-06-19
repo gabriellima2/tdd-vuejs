@@ -2,10 +2,11 @@
 	<div>
 		<BaseLabel :htmlFor="props.input.id">{{ props.labelText }}</BaseLabel>
 		<BaseInput
-			v-bind="props.input"
 			type="text"
+			v-bind="props.input"
 			:aria-invalid="!!props.error.message"
 			:aria-errormessage="props.error.id"
+			:modelValue="props.modelValue"
 			@change="($event: Event) => emits('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 		<BaseError :id="props.error.id" :message="props.error.message" />
