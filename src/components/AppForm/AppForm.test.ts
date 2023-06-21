@@ -38,7 +38,7 @@ describe("<AppForm />", () => {
 				const emailErrorEl = component.get(EMAIL_ERROR_SELECTOR);
 
 				expect(emailErrorEl).toBeTruthy()
-				expect(emailErrorEl.text()).toContain(EXPECTED_MESSAGE_SNIPPET);
+				expect(emailErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
 				expect(component.find(PASSWORD_ERROR_SELECTOR).exists()).toBeFalsy();
 			});
 			it("should throw an error when password field is empty", async () => {
@@ -50,7 +50,7 @@ describe("<AppForm />", () => {
 				const passwordErrorEl = component.get(PASSWORD_ERROR_SELECTOR);
 
 				expect(passwordErrorEl).toBeTruthy()
-				expect(passwordErrorEl.text()).toContain(EXPECTED_MESSAGE_SNIPPET);
+				expect(passwordErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
 				expect(component.find(EMAIL_ERROR_SELECTOR).exists()).toBeFalsy();
 			});
 			it("should throw an error when both fields are empty", async () => {
@@ -63,7 +63,58 @@ describe("<AppForm />", () => {
 				expect(emailErrorEl).toBeTruthy();
 				expect(emailErrorEl.text()).toContain(EXPECTED_MESSAGE_SNIPPET);
 				expect(passwordErrorEl).toBeTruthy();
-				expect(passwordErrorEl.text()).toContain(EXPECTED_MESSAGE_SNIPPET);
+				expect(passwordErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
+			});
+		});
+		describe("Invalid values", () => {
+			const EXPECTED_MESSAGE_SNIPPET = "inválido";
+			it("should throw an error when the email field has an invalid format", async () => {
+				const INVALID_VALUE = "anyemail.com"
+				const component = mountComponent();
+				const emailField = component.get('[type="email"]');
+
+				await emailField.setValue(INVALID_VALUE);
+				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
+				const emailErrorEl = component.get(EMAIL_ERROR_SELECTOR);
+
+				expect(emailErrorEl).toBeTruthy();
+				expect(emailErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
+			});
+			it("should throw an error when the email field has a value greater than 256 chars", async () => {
+				const INVALID_VALUE = "emailloremipsumdolorsitametconsecteturadipiscingelit,temporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur@any.com"
+				const component = mountComponent();
+				const emailField = component.get('[type="email"]');
+
+				await emailField.setValue(INVALID_VALUE);
+				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
+				const emailErrorEl = component.get(EMAIL_ERROR_SELECTOR);
+
+				expect(emailErrorEl).toBeTruthy();
+				expect(emailErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
+			});
+			it("should throw an error when the password field has a value less than 8 chars", async () => {
+				const INVALID_VALUE = "123456"
+				const component = mountComponent();
+				const passwordField = component.get('[type="password"]')
+
+				await passwordField.setValue(INVALID_VALUE);
+				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
+				const passwordErrorEl = component.get(PASSWORD_ERROR_SELECTOR);
+
+				expect(passwordErrorEl).toBeTruthy();
+				expect(passwordErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
+			});
+			it("should throw an error when the password field has a value greater than 50 chars", async () => {
+				const INVALID_VALUE = "loremipsumdolorsitametconsecteturadipiscingelittemporincididuntutlaboreetdoloremagnaaliqua"
+				const component = mountComponent();
+				const passwordField = component.get('[type="password"]')
+
+				await passwordField.setValue(INVALID_VALUE);
+				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
+				const passwordErrorEl = component.get(PASSWORD_ERROR_SELECTOR);
+
+				expect(passwordErrorEl).toBeTruthy();
+				expect(passwordErrorEl.text().toLowerCase()).toContain(EXPECTED_MESSAGE_SNIPPET);
 			});
 		});
 	});
