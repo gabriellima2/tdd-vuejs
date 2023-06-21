@@ -10,8 +10,6 @@
     "test": "vitest --environment jsdom"
   },
   "dependencies": {
-    "@vee-validate/zod": "^4.9.6",
-    "vee-validate": "^4.9.6",
     "vue": "^3.2.47",
     "zod": "^3.21.4"
   },
