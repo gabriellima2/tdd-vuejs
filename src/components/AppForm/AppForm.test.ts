@@ -6,16 +6,19 @@ import AppForm from "./AppForm.vue";
 const mountComponent = () => mount(AppForm);
 
 describe("<AppForm />", () => {
+	const EMAIL_FIELD_SELECTOR = '[type="email"]';
+	const PASSWORD_FIELD_SELECTOR = '[type="password"]';
+
 	describe("Render", () => {
 		it("should render correctly", () => {
 			const component = mountComponent();
 			const html = component.html();
 
 			expect(html).toContain("Email");
-			expect(component.get('[type="email"]')).toBeTruthy();
+			expect(component.get(EMAIL_FIELD_SELECTOR)).toBeTruthy();
 			expect(component.get('[placeholder="ex: your_name@domain.com"]')).toBeTruthy();
 			expect(html).toContain("Senha");
-			expect(component.get('[type="password"]')).toBeTruthy();
+			expect(component.get(PASSWORD_FIELD_SELECTOR)).toBeTruthy();
 			expect(component.get('[placeholder="8 ou mais caracteres"]')).toBeTruthy();
 			expect(component.get('[type="submit"]')).toBeTruthy();
 			expect(component.get('[title="Pronto!"]')).toBeTruthy();
@@ -31,7 +34,7 @@ describe("<AppForm />", () => {
 			const EXPECTED_MESSAGE_SNIPPET = "obrigatório";
 			it("should throw an error when email field is empty", async () => {
 				const component = mountComponent();
-				const passwordField = component.get('[type="password"]')
+				const passwordField = component.get(PASSWORD_FIELD_SELECTOR)
 
 				await passwordField.setValue("any_password");
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
@@ -43,7 +46,7 @@ describe("<AppForm />", () => {
 			});
 			it("should throw an error when password field is empty", async () => {
 				const component = mountComponent();
-				const emailField = component.get('[type="email"]')
+				const emailField = component.get(EMAIL_FIELD_SELECTOR)
 
 				await emailField.setValue("any@email.com");
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
@@ -71,7 +74,7 @@ describe("<AppForm />", () => {
 			it("should throw an error when the email field has an invalid format", async () => {
 				const INVALID_VALUE = "anyemail.com"
 				const component = mountComponent();
-				const emailField = component.get('[type="email"]');
+				const emailField = component.get(EMAIL_FIELD_SELECTOR);
 
 				await emailField.setValue(INVALID_VALUE);
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
@@ -83,7 +86,7 @@ describe("<AppForm />", () => {
 			it("should throw an error when the email field has a value greater than 256 chars", async () => {
 				const INVALID_VALUE = "emailloremipsumdolorsitametconsecteturadipiscingelit,temporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniam,quisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat.Duisauteiruredolorinreprehenderitinvoluptatevelitessecillumdoloreeufugiatnullapariatur@any.com"
 				const component = mountComponent();
-				const emailField = component.get('[type="email"]');
+				const emailField = component.get(EMAIL_FIELD_SELECTOR);
 
 				await emailField.setValue(INVALID_VALUE);
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
@@ -95,7 +98,7 @@ describe("<AppForm />", () => {
 			it("should throw an error when the password field has a value less than 8 chars", async () => {
 				const INVALID_VALUE = "123456"
 				const component = mountComponent();
-				const passwordField = component.get('[type="password"]')
+				const passwordField = component.get(PASSWORD_FIELD_SELECTOR)
 
 				await passwordField.setValue(INVALID_VALUE);
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
@@ -107,7 +110,7 @@ describe("<AppForm />", () => {
 			it("should throw an error when the password field has a value greater than 50 chars", async () => {
 				const INVALID_VALUE = "loremipsumdolorsitametconsecteturadipiscingelittemporincididuntutlaboreetdoloremagnaaliqua"
 				const component = mountComponent();
-				const passwordField = component.get('[type="password"]')
+				const passwordField = component.get(PASSWORD_FIELD_SELECTOR)
 
 				await passwordField.setValue(INVALID_VALUE);
 				await component.get(SUBMIT_BTN_SELECTOR).trigger("submit");
