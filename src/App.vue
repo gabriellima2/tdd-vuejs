@@ -1,5 +1,5 @@
 <template>
-	<AppForm />
+	<AppForm :handle-submit="(data) => console.log(data)" />
 </template>
 
 <script setup lang="ts">

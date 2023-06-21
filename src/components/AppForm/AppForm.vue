@@ -34,9 +34,11 @@ import Field from '../common/Field.vue';
 import { getFieldError } from "../../helpers/get-field-error";
 import { emailSchema, passwordSchema } from "./validations";
 
-type Fields = { email: string; password: string };
-type FieldErrors = { email: string | null; password: string | null }
+export type Fields = { email: string; password: string };
+type FieldErrors = { email: string | null; password: string | null };
+type AppFormProps = { handleSubmit: (data: Fields) => void };
 
+const props = defineProps<AppFormProps>();
 const fields = reactive<Fields>({ email: "", password: "" });
 
 function validate(): FieldErrors {
@@ -49,7 +51,9 @@ function validate(): FieldErrors {
 const errors = computed<FieldErrors>(() => validate())
 
 function onSubmit() {
-	validate()
+	const errors = validate();
+	if (!!errors.email || !!errors.password) return;
+	props.handleSubmit(fields);
 }
 </script>
 
