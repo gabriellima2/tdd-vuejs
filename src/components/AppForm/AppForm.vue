@@ -26,35 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
-
 import BaseForm from '../common/BaseForm.vue';
 import Field from '../common/Field.vue';
 
-import { getFieldError } from "../../helpers/get-field-error";
-import { emailSchema, passwordSchema } from "./validations";
+import { useAppForm, type useAppFormParams } from "./composables/use-app-form";
 
-export type Fields = { email: string; password: string };
-type FieldErrors = { email: string | null; password: string | null };
-type AppFormProps = { handleSubmit: (data: Fields) => void };
+type AppFormProps = Pick<useAppFormParams, "handleSubmit">;
 
 const props = defineProps<AppFormProps>();
-const fields = reactive<Fields>({ email: "", password: "" });
-
-function validate(): FieldErrors {
-	return {
-		email: getFieldError(emailSchema, fields.email),
-		password: getFieldError(passwordSchema, fields.password)
-	}
-}
-
-const errors = computed<FieldErrors>(() => validate())
-
-function onSubmit() {
-	const errors = validate();
-	if (!!errors.email || !!errors.password) return;
-	props.handleSubmit(fields);
-}
+const { fields, errors, onSubmit } = useAppForm({ handleSubmit: props.handleSubmit });
 </script>
 
 <style scoped>
