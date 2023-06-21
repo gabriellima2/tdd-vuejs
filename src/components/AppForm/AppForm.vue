@@ -1,7 +1,7 @@
 <template>
-	<BaseForm buttonText="Pronto!" :onSubmit="onSubmit">
+	<BaseForm button-text="Pronto!" :on-submit="onSubmit">
 		<Field
-			labelText="Email"
+			label-text="Email"
 			v-model="fields.email"
 			:input="{
 				type: 'email',
@@ -12,7 +12,7 @@
 			:error="{ id: 'email_error', message: errors.email || null }"
 		/>
 		<Field
-			labelText="Senha"
+			label-text="Senha"
 			v-model="fields.password"
 			:input="{
 				type: 'password',

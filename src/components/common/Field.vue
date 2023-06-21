@@ -6,7 +6,7 @@
 			v-bind="props.input"
 			:aria-invalid="!!props.error.message"
 			:aria-errormessage="props.error.id"
-			:modelValue="props.modelValue"
+			:model-value="props.modelValue"
 			@change="($event: Event) => emits('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 		<BaseError :id="props.error.id" :message="props.error.message" />
